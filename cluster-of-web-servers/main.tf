@@ -126,6 +126,14 @@ resource "aws_elb" "example" {
 resource "aws_security_group" "elb" {
   name = "terraform-example-elb"
 
+  # Allow all outbound
+  egress {
+    from_port = 0
+    to_port = 0
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   # Inbound HTTP from anywhere
   ingress {
     from_port = 80
