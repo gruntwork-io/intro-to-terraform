@@ -1,0 +1,7 @@
+Gruntwork License
+
+Copyright (c) 2016 Gruntwork, LLC
+
+This code is the property of Gruntwork, LLC. In the Software Development Agreement signed by both Gruntwork and your
+company, Gruntwork grants you a limited license to use, modify, and create derivative works of this code. Please
+consult the Software Development Agreement for the complete terms under which you may use this code.
