@@ -1,7 +1,8 @@
 # An Introduction to Terraform Sample Code
 
-This repo contains the sample code for the blog post [An Introduction to Terraform]().
-It is broken into two folders:
+This repo contains the sample code for the blog post [An Introduction to
+Terraform](https://blog.gruntwork.io/an-introduction-to-terraform-f17df9c6d180#.eo54nuvuj). It is broken down into two
+folders:
 
 * [single-web-server](./single-web-server): Deploy a single EC2 Instance with a web server that will return
   "Hello, World" for every request on port 8080.
@@ -20,7 +21,8 @@ It is broken into two folders:
 1. Run `terraform plan`.
 1. If the plan looks good, run `terraform apply`.
 
-Please see [An Introduction to Terraform]() for more information.
+See [An Introduction to Terraform](https://blog.gruntwork.io/an-introduction-to-terraform-f17df9c6d180#.eo54nuvuj) for
+more information.
 
 ## License
 
