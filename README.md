@@ -3,15 +3,21 @@
 
 # An Introduction to Terraform Sample Code
 
-This repo contains the sample code for the blog post [An Introduction to
-Terraform](https://blog.gruntwork.io/an-introduction-to-terraform-f17df9c6d180#.eo54nuvuj). It is broken down into two
-folders:
+This repo contains the sample code for the blog post series [A Comprehensive Guide to 
+Terraform](https://blog.gruntwork.io/a-comprehensive-guide-to-terraform-b3d32832baca). It is broken down into several
+example folders:
 
 * [single-web-server](./single-web-server): Deploy a single EC2 Instance with a web server that will return
-  "Hello, World" for every request on port 8080.
+  "Hello, World" for every request on port 8080. See [An Introduction to 
+  Terraform](https://blog.gruntwork.io/an-introduction-to-terraform-f17df9c6d180) for more information on this
+  example.
 * [cluster-of-web-servers](./cluster-of-web-servers): Deploy a cluster of EC2 Instances in an Auto Scaling Group (ASG)
   and an Elastic Load Balancer (ELB). The ELB listens on port 80 and distributes load across the EC2 Instances, each
-  of which runs the same "Hello, World" web server.
+  of which runs the same "Hello, World" web server. See [An Introduction to 
+  Terraform](https://blog.gruntwork.io/an-introduction-to-terraform-f17df9c6d180) for more information on this example.
+* [database](./database): Deploy MySQL on top of Amazon's Relational Database Service (RDS). See [How to Manage 
+  Terraform State](https://blog.gruntwork.io/how-to-manage-terraform-state-28f5697e68fa) for more information on this
+  example.
 
 ## Quick start
 
@@ -20,12 +26,11 @@ folders:
 
 1. Install [Terraform](https://www.terraform.io/).
 1. Set your AWS credentials as the environment variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`.
-1. `cd` into one of the two example folders.
+1. `cd` into one of the example folders.
 1. Run `terraform init`.
 1. Run `terraform apply`.
-
-See [An Introduction to Terraform](https://blog.gruntwork.io/an-introduction-to-terraform-f17df9c6d180#.eo54nuvuj) for
-more information.
+1. After it's done deploying, the example will output URLs or IPs you can try out.
+1. To clean up and delete all resources after you're done, run `terraform destroy`.
 
 ## License
 
