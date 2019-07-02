@@ -1,3 +1,6 @@
+[![Maintained by Gruntwork.io](https://img.shields.io/badge/maintained%20by-gruntwork.io-%235849a6.svg)](https://gruntwork.io/?ref=repo_intro_to_terraform)
+![Terraform Version](https://img.shields.io/badge/tf-%3E%3D0.12.0-blue.svg)
+
 # An Introduction to Terraform Sample Code
 
 This repo contains the sample code for the blog post [An Introduction to
