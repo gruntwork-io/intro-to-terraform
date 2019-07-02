@@ -15,6 +15,9 @@ example folders:
   and an Elastic Load Balancer (ELB). The ELB listens on port 80 and distributes load across the EC2 Instances, each
   of which runs the same "Hello, World" web server. See [An Introduction to 
   Terraform](https://blog.gruntwork.io/an-introduction-to-terraform-f17df9c6d180) for more information on this example.
+* [s3-backend](./s3-backend): Create an S3 bucket and DymamoDB table to use as a Terraform backend. See [How to Manage 
+  Terraform State](https://blog.gruntwork.io/how-to-manage-terraform-state-28f5697e68fa) for more information on this
+  example.
 * [database](./database): Deploy MySQL on top of Amazon's Relational Database Service (RDS). See [How to Manage 
   Terraform State](https://blog.gruntwork.io/how-to-manage-terraform-state-28f5697e68fa) for more information on this
   example.
