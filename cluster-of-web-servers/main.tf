@@ -4,12 +4,21 @@
 # (ELB) in front of it to distribute traffic across the EC2 Instances in the ASG.
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+# ----------------------------------------------------------------------------------------------------------------------
+# REQUIRE A SPECIFIC TERRAFORM VERSION OR HIGHER
+# This module has been updated with 0.12 syntax, which means it is no longer compatible with any versions below 0.12.
+# ----------------------------------------------------------------------------------------------------------------------
+
+terraform {
+  required_version = ">= 0.12"
+}
+
 # ------------------------------------------------------------------------------
 # CONFIGURE OUR AWS CONNECTION
 # ------------------------------------------------------------------------------
 
 provider "aws" {
-  region = "us-east-1"
+  region = "us-east-2"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -26,18 +35,18 @@ data "aws_availability_zones" "all" {}
 # ---------------------------------------------------------------------------------------------------------------------
 
 resource "aws_autoscaling_group" "example" {
-  launch_configuration = "${aws_launch_configuration.example.id}"
-  availability_zones = ["${data.aws_availability_zones.all.names}"]
+  launch_configuration = aws_launch_configuration.example.id
+  availability_zones   = data.aws_availability_zones.all.names
 
   min_size = 2
   max_size = 10
 
-  load_balancers = ["${aws_elb.example.name}"]
+  load_balancers    = [aws_elb.example.name]
   health_check_type = "ELB"
 
   tag {
-    key = "Name"
-    value = "terraform-asg-example"
+    key                 = "Name"
+    value               = "terraform-asg-example"
     propagate_at_launch = true
   }
 }
@@ -47,10 +56,10 @@ resource "aws_autoscaling_group" "example" {
 # ---------------------------------------------------------------------------------------------------------------------
 
 resource "aws_launch_configuration" "example" {
-  # Ubuntu Server 14.04 LTS (HVM), SSD Volume Type in us-east-1
-  image_id = "ami-2d39803a"
-  instance_type = "t2.micro"
-  security_groups = ["${aws_security_group.instance.id}"]
+  # Ubuntu Server 18.04 LTS (HVM), SSD Volume Type in us-east-2
+  image_id        = "ami-0c55b159cbfafe1f0"
+  instance_type   = "t2.micro"
+  security_groups = [aws_security_group.instance.id]
 
   user_data = <<-EOF
               #!/bin/bash
@@ -58,13 +67,8 @@ resource "aws_launch_configuration" "example" {
               nohup busybox httpd -f -p "${var.server_port}" &
               EOF
 
-  # Important note: whenever using a launch configuration with an auto scaling group, you must set
-  # create_before_destroy = true. However, as soon as you set create_before_destroy = true in one resource, you must
-  # also set it in every resource that it depends on, or you'll get an error about cyclic dependencies (especially when
-  # removing resources). For more info, see:
-  #
+  # Whenever using a launch configuration with an auto scaling group, you must set create_before_destroy = true.
   # https://www.terraform.io/docs/providers/aws/r/launch_configuration.html
-  # https://terraform.io/docs/configuration/resources.html
   lifecycle {
     create_before_destroy = true
   }
@@ -79,17 +83,10 @@ resource "aws_security_group" "instance" {
 
   # Inbound HTTP from anywhere
   ingress {
-    from_port = "${var.server_port}"
-    to_port = "${var.server_port}"
-    protocol = "tcp"
+    from_port   = var.server_port
+    to_port     = var.server_port
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  # aws_launch_configuration.launch_configuration in this module sets create_before_destroy to true, which means
-  # everything it depends on, including this resource, must set it as well, or you'll get cyclic dependency errors
-  # when you try to do a terraform destroy.
-  lifecycle {
-    create_before_destroy = true
   }
 }
 
@@ -98,23 +95,23 @@ resource "aws_security_group" "instance" {
 # ---------------------------------------------------------------------------------------------------------------------
 
 resource "aws_elb" "example" {
-  name = "terraform-asg-example"
-  security_groups = ["${aws_security_group.elb.id}"]
-  availability_zones = ["${data.aws_availability_zones.all.names}"]
+  name               = "terraform-asg-example"
+  security_groups    = [aws_security_group.elb.id]
+  availability_zones = data.aws_availability_zones.all.names
 
   health_check {
-    healthy_threshold = 2
+    target              = "HTTP:${var.server_port}/"
+    interval            = 30
+    timeout             = 3
+    healthy_threshold   = 2
     unhealthy_threshold = 2
-    timeout = 3
-    interval = 30
-    target = "HTTP:${var.server_port}/"
   }
 
   # This adds a listener for incoming HTTP requests.
   listener {
-    lb_port = 80
-    lb_protocol = "http"
-    instance_port = "${var.server_port}"
+    lb_port           = var.elb_port
+    lb_protocol       = "http"
+    instance_port     = var.server_port
     instance_protocol = "http"
   }
 }
@@ -128,17 +125,17 @@ resource "aws_security_group" "elb" {
 
   # Allow all outbound
   egress {
-    from_port = 0
-    to_port = 0
-    protocol = "-1"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
   # Inbound HTTP from anywhere
   ingress {
-    from_port = 80
-    to_port = 80
-    protocol = "tcp"
+    from_port   = var.elb_port
+    to_port     = var.elb_port
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }

@@ -1,3 +1,6 @@
+[![Maintained by Gruntwork.io](https://img.shields.io/badge/maintained%20by-gruntwork.io-%235849a6.svg)](https://gruntwork.io/?ref=repo_intro_to_terraform)
+![Terraform Version](https://img.shields.io/badge/tf-%3E%3D0.12.0-blue.svg)
+
 # An Introduction to Terraform Sample Code
 
 This repo contains the sample code for the blog post [An Introduction to
@@ -18,8 +21,8 @@ folders:
 1. Install [Terraform](https://www.terraform.io/).
 1. Set your AWS credentials as the environment variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`.
 1. `cd` into one of the two example folders.
-1. Run `terraform plan`.
-1. If the plan looks good, run `terraform apply`.
+1. Run `terraform init`.
+1. Run `terraform apply`.
 
 See [An Introduction to Terraform](https://blog.gruntwork.io/an-introduction-to-terraform-f17df9c6d180#.eo54nuvuj) for
 more information.

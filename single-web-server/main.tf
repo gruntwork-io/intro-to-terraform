@@ -3,12 +3,21 @@
 # This template runs a simple "Hello, World" web server on a single EC2 Instance
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+# ----------------------------------------------------------------------------------------------------------------------
+# REQUIRE A SPECIFIC TERRAFORM VERSION OR HIGHER
+# This module has been updated with 0.12 syntax, which means it is no longer compatible with any versions below 0.12.
+# ----------------------------------------------------------------------------------------------------------------------
+
+terraform {
+  required_version = ">= 0.12"
+}
+
 # ------------------------------------------------------------------------------
 # CONFIGURE OUR AWS CONNECTION
 # ------------------------------------------------------------------------------
 
 provider "aws" {
-  region = "us-east-1"
+  region = "us-east-2"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -16,10 +25,10 @@ provider "aws" {
 # ---------------------------------------------------------------------------------------------------------------------
 
 resource "aws_instance" "example" {
-  # Ubuntu Server 14.04 LTS (HVM), SSD Volume Type in us-east-1
-  ami = "ami-2d39803a"
-  instance_type = "t2.micro"
-  vpc_security_group_ids = ["${aws_security_group.instance.id}"]
+  # Ubuntu Server 18.04 LTS (HVM), SSD Volume Type in us-east-2
+  ami                    = "ami-0c55b159cbfafe1f0"
+  instance_type          = "t2.micro"
+  vpc_security_group_ids = [aws_security_group.instance.id]
 
   user_data = <<-EOF
               #!/bin/bash
@@ -27,7 +36,7 @@ resource "aws_instance" "example" {
               nohup busybox httpd -f -p "${var.server_port}" &
               EOF
 
-  tags {
+  tags = {
     Name = "terraform-example"
   }
 }
@@ -41,9 +50,9 @@ resource "aws_security_group" "instance" {
 
   # Inbound HTTP from anywhere
   ingress {
-    from_port = "${var.server_port}"
-    to_port = "${var.server_port}"
-    protocol = "tcp"
+    from_port   = var.server_port
+    to_port     = var.server_port
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
