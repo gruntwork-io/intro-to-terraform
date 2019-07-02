@@ -21,6 +21,14 @@ example folders:
 * [database](./database): Deploy MySQL on top of Amazon's Relational Database Service (RDS). See [How to Manage 
   Terraform State](https://blog.gruntwork.io/how-to-manage-terraform-state-28f5697e68fa) for more information on this
   example.
+* [modules](./modules): Examples of reusable Terraform modules, including a module that can deploy a web server cluster
+  on top of ASG with an ELB. See [How to create reusable infrastructure with Terraform 
+  modules](https://blog.gruntwork.io/how-to-create-reusable-infrastructure-with-terraform-modules-25526d65f73d) for 
+  more information on this example.  
+* [live](./live): Examples of how to deploy different live environments (i.e., staging, production) using the code from 
+  the `modules` folder. See [How to create reusable infrastructure with Terraform 
+  modules](https://blog.gruntwork.io/how-to-create-reusable-infrastructure-with-terraform-modules-25526d65f73d) for 
+  more information on this example.  
 
 ## Quick start
 
