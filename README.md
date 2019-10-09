@@ -14,7 +14,7 @@ following parts of the series:
       (ASG) and an Elastic Load Balancer (ELB). The ELB listens on port 80 and distributes load across the EC2 
       Instances, each of which runs the same "Hello, World" web server. 
 1. [How to Manage Terraform State](https://blog.gruntwork.io/how-to-manage-terraform-state-28f5697e68fa)
-    * [s3-backend](./s3-backend): Create an S3 bucket and DymamoDB table to use as a Terraform backend. 
+    * [s3-backend](./s3-backend): Create an S3 bucket and DynamoDB table to use as a Terraform backend. 
     * [database](./database): Deploy MySQL on top of Amazon's Relational Database Service (RDS). 
 1. [How to create reusable infrastructure with Terraform modules](https://blog.gruntwork.io/how-to-create-reusable-infrastructure-with-terraform-modules-25526d65f73d)
     * [modules](./modules): Examples of reusable Terraform modules, including a module that can deploy a web server 
