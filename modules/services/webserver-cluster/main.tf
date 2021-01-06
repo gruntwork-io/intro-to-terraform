@@ -111,7 +111,7 @@ resource "aws_elb" "example" {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# CREATE A SECURITY GROUP THAT CONTROLS WHAT TRAFFIC AN GO IN AND OUT OF THE ELB
+# CREATE A SECURITY GROUP THAT CONTROLS WHAT TRAFFIC CAN GO IN AND OUT OF THE ELB
 # ---------------------------------------------------------------------------------------------------------------------
 
 resource "aws_security_group" "elb" {
