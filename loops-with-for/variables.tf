@@ -7,7 +7,7 @@ variable "names" {
 variable "hero_thousand_faces" {
   description = "map"
   type        = map(string)
-  default     = {
+  default = {
     neo      = "hero"
     trinity  = "love interest"
     morpheus = "mentor"
