@@ -7,9 +7,9 @@
 # ----------------------------------------------------------------------------------------------------------------------
 
 terraform {
-  # This module is now only being tested with Terraform 0.13.x. However, to make upgrading easier, we are setting
+  # This module is now only being tested with Terraform 0.14.x. However, to make upgrading easier, we are setting
   # 0.12.26 as the minimum version, as that version added support for required_providers with source URLs, making it
-  # forwards compatible with 0.13.x code.
+  # forwards compatible with 0.14.x code.
   required_version = ">= 0.12.26"
 }
 
@@ -59,8 +59,8 @@ resource "aws_autoscaling_group" "example" {
 
 resource "aws_launch_configuration" "example" {
   # Ubuntu Server 18.04 LTS (HVM), SSD Volume Type in us-east-2
-  image_id        = "ami-0c55b159cbfafe1f0"
-  instance_type   = "t2.micro"
+  image_id      = "ami-0c55b159cbfafe1f0"
+  instance_type = "t2.micro"
 
   # Whenever using a launch configuration with an auto scaling group, you must set create_before_destroy = true.
   # https://www.terraform.io/docs/providers/aws/r/launch_configuration.html

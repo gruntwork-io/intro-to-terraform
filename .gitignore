@@ -23,3 +23,6 @@ vendor
 
 # Don't check in cfn-signal-go binaries built for testing
 examples/asg-service-dynamic/bin
+# Ignore Terraform lock files, as we want to test the Terraform code in these repos with the latest provider
+# versions.
+.terraform.lock.hcl

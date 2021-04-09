@@ -11,5 +11,5 @@ output "bios" {
 }
 
 output "upper_roles" {
-  value = {for name, role in var.hero_thousand_faces : upper(name) => upper(role)}
+  value = { for name, role in var.hero_thousand_faces : upper(name) => upper(role) }
 }
