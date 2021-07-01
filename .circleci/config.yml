@@ -3,7 +3,7 @@ env: &env
     GRUNTWORK_INSTALLER_VERSION: v0.0.21
     TERRATEST_LOG_PARSER_VERSION: v0.13.24
     MODULE_CI_VERSION: v0.31.0
-    TERRAFORM_VERSION: 0.15.5
+    TERRAFORM_VERSION: 0.15.3
     PACKER_VERSION: 1.6.1
     GOLANG_VERSION: 1.16
     GO111MODULE: auto
@@ -11,6 +11,7 @@ defaults: &defaults
   machine:
     enabled: true
     image: "ubuntu-1604:201903-01"
+  resource_class: xlarge
   <<: *env
 install_gruntwork_utils: &install_gruntwork_utils
   name: install gruntwork utils
@@ -18,7 +19,8 @@ install_gruntwork_utils: &install_gruntwork_utils
     curl -Ls https://raw.githubusercontent.com/gruntwork-io/gruntwork-installer/master/bootstrap-gruntwork-installer.sh | bash /dev/stdin --version "${GRUNTWORK_INSTALLER_VERSION}"
     gruntwork-install --module-name "gruntwork-module-circleci-helpers" --repo "https://github.com/gruntwork-io/terraform-aws-ci" --tag "${MODULE_CI_VERSION}"
     gruntwork-install --module-name "git-helpers" --repo "https://github.com/gruntwork-io/terraform-aws-ci" --tag "${MODULE_CI_VERSION}"
-    gruntwork-install --binary-name "terratest_log_parser" --repo "https://github.com/gruntwork-io/terratest" --tag "${TERRATEST_LOG_PARSER_VERSION}"configure-environment-for-gruntwork-module \
+    gruntwork-install --binary-name "terratest_log_parser" --repo "https://github.com/gruntwork-io/terratest" --tag "${TERRATEST_LOG_PARSER_VERSION}"
+    configure-environment-for-gruntwork-module \
       --terraform-version ${TERRAFORM_VERSION} \
       --packer-version ${PACKER_VERSION} \
       --go-version ${GOLANG_VERSION}
@@ -61,7 +63,7 @@ jobs:
           path: /tmp/logs
 workflows:
   version: 2
-  build-and-test:
+  run-tests:
     jobs:
       - build:
           filters:
