@@ -11,7 +11,7 @@ defaults: &defaults
   machine:
     enabled: true
     image: ubuntu-2004:202111-02
-  resource_class: xlarge
+  resource_class: large
   <<: *env
 install_gruntwork_utils: &install_gruntwork_utils
   name: install gruntwork utils
@@ -26,10 +26,11 @@ install_gruntwork_utils: &install_gruntwork_utils
       --go-version ${GOLANG_VERSION}
 version: 2.0
 jobs:
-  build:
+  precommit:
     <<: *env
     docker:
       - image: cimg/python:3.10.2
+    resource_class: small
     steps:
       - checkout
       - run:
