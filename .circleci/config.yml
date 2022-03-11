@@ -1,8 +1,8 @@
 env: &env
   environment:
-    GRUNTWORK_INSTALLER_VERSION: v0.0.21
-    TERRATEST_LOG_PARSER_VERSION: v0.13.24
-    MODULE_CI_VERSION: v0.31.0
+    GRUNTWORK_INSTALLER_VERSION: v0.0.38
+    TERRATEST_LOG_PARSER_VERSION: v0.40.6
+    MODULE_CI_VERSION: v0.46.1
     TERRAFORM_VERSION: 1.1.4
     PACKER_VERSION: 1.6.1
     GOLANG_VERSION: 1.16
@@ -10,8 +10,8 @@ env: &env
 defaults: &defaults
   machine:
     enabled: true
-    image: "ubuntu-1604:201903-01"
-  resource_class: xlarge
+    image: ubuntu-2004:202111-02
+  resource_class: large
   <<: *env
 install_gruntwork_utils: &install_gruntwork_utils
   name: install gruntwork utils
@@ -26,10 +26,11 @@ install_gruntwork_utils: &install_gruntwork_utils
       --go-version ${GOLANG_VERSION}
 version: 2.0
 jobs:
-  build:
+  precommit:
     <<: *env
     docker:
-      - image: circleci/python:3.8.1
+      - image: cimg/python:3.10.2
+    resource_class: small
     steps:
       - checkout
       - run:
@@ -65,7 +66,7 @@ workflows:
   version: 2
   run-tests:
     jobs:
-      - build:
+      - precommit:
           filters:
             tags:
               only: /^v.*/
@@ -73,7 +74,7 @@ workflows:
             - Gruntwork Admin
       - test:
           requires:
-            - build
+            - precommit
           filters:
             tags:
               only: /^v.*/
