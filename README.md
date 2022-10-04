@@ -1,7 +1,20 @@
 [![Maintained by Gruntwork.io](https://img.shields.io/badge/maintained%20by-gruntwork.io-%235849a6.svg)](https://gruntwork.io/?ref=repo_intro_to_terraform)
 ![Terraform Version](https://img.shields.io/badge/tf-%3E%3D1.1.0-blue.svg)
 
-# An Introduction to Terraform Sample Code
+# NOTE: This repo is now archived and replaced!
+
+This repo contains the sample code for the blog post series [A Comprehensive Guide to 
+Terraform](https://blog.gruntwork.io/a-comprehensive-guide-to-terraform-b3d32832baca), which we turned into the 
+book _[Terraform: Up & Running](https://www.terraformupandrunning.com/)_, with its own [code examples 
+repo](https://github.com/brikis98/terraform-up-and-running-code). 
+
+Instead of maintaining two examples repos, we have decided to maintain just one. This repo is now archived, so
+please head over to the [terraform-up-and-running-code repo](https://github.com/brikis98/terraform-up-and-running-code) 
+for the most up to date examples.
+
+# Original content (saved for posterity)
+
+## An Introduction to Terraform Sample Code
 
 This repo contains the sample code for the blog post series [A Comprehensive Guide to 
 Terraform](https://blog.gruntwork.io/a-comprehensive-guide-to-terraform-b3d32832baca). The examples correspond to the
